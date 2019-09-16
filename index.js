@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { students } = require('./routes/student');
 const { faculty } = require('./routes/faculty');
 const { reports } = require('./routes/report');
+const { office } = require('./routes/office');
 
 const dotenv = require('dotenv');
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use('/api/student', students)
 app.use('/api/faculty', faculty)
 app.use('/api/report', reports)
+app.use('/api/office', office)
 
 mongoose.connect(process.env.DB_CONNECT_URL, {
     useNewUrlParser: true,

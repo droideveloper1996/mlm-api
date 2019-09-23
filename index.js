@@ -53,9 +53,9 @@ mongoose.connect(process.env.DB_CONNECT_URL_PRODUCTION, {
         console.log('Connection was Successful');
 
 });
-app.get('/', (req, res) => {
-    res.status(400).json({ message: 'Access Denied', status: 400 });
-})
+// app.get('/', (req, res) => {
+//     res.status(400).json({ message: 'Access Denied', status: 400 });
+// })
 
 app.post('/upload', upload.single('image'), async (req, res, next) => {
     if (req.file == null) {

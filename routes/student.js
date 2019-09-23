@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { studentRegistrationValiation } = require('../joi-schema/joi-student-validation')
 const { studentRegistrationSchema } = require('../mongoose-model/mongoose-student')
-const bcrypt = require('brcypt');
+const bcrypt = require('../index.js').bcrypt;
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
@@ -24,15 +24,15 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
     const findStudentID = await studentRegistrationSchema.findOne({ studentID: req.body.studentID })
     if (findStudentID) return res.status(400).send({ message: 'Student ID/Scholar No. Already Registered', status: 400 })
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    //const salt = await bcrypt.genSalt(10);
+    // const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     const studentObject = new studentRegistrationSchema({
         studentFirstName: req.body.studentFirstName,
         studentLastName: req.body.studentLastName,
         dateOfAdmission: req.body.dateOfAdmission,
         gender: req.body.gender,
-        password: hashPassword,
+        password: req.body.password,
         studentID: req.body.studentID,
         dateOfBirth: req.body.dateOfBirth,
         boardRollNo: req.body.boardRollNo,

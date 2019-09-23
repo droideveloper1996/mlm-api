@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('../index').bcrypt;
+
 const joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 const { students } = require('./routes/student');
@@ -16,6 +17,8 @@ const upload = multer({ dest: 'uploads/' })
 const fs = require('fs-extra');
 const MongoClient = require('mongodb').MongoClient
 ObjectId = require('mongodb').ObjectId
+module.exports.bcrypt = bcrypt;
+
 
 dotenv.config();
 const PORT = 4000 || process.env.PORT

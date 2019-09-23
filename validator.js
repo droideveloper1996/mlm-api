@@ -1,8 +1,5 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-
-
 module.exports.verifyToken = (req, res, next) => {
     const token = req.header('auth-token');
     if (!token)

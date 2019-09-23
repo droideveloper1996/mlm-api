@@ -25,14 +25,15 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
     if (findStudentID) return res.status(400).send({ message: 'Student ID/Scholar No. Already Registered', status: 400 })
 
     //const salt = await bcrypt.genSalt(10);
-    // const hashPassword = await bcrypt.hash(req.body.password, salt);
-
+    // const  = await bcrypt.hash(req.body.password, salt);
+    var salt = await bcrypt.genSaltSync(10);
+    var hashPassword = bcrypt.hashSync(req.body.password, salt);
     const studentObject = new studentRegistrationSchema({
         studentFirstName: req.body.studentFirstName,
         studentLastName: req.body.studentLastName,
         dateOfAdmission: req.body.dateOfAdmission,
         gender: req.body.gender,
-        password: req.body.password,
+        password: hashPassword,
         studentID: req.body.studentID,
         dateOfBirth: req.body.dateOfBirth,
         boardRollNo: req.body.boardRollNo,

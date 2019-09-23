@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { studentRegistrationValiation } = require('../joi-schema/joi-student-validation')
 const { studentRegistrationSchema } = require('../mongoose-model/mongoose-student')
-const bcrypt = require('../index.js').bcrypt;
+const bcrypt = require('brcypt');
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })

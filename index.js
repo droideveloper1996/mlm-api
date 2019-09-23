@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('../index').bcrypt;
-
+const bcrypt = require('bcrypt');
 const joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 const { students } = require('./routes/student');

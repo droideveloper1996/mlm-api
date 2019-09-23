@@ -3,7 +3,7 @@ const { verifyToken } = require('../validator');
 const { loginValidation, registerValidation } = require('../joi-schema/joi-validator');
 const OfficeUser = require('../mongoose-model/mongoose-office');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('../index').bcrypt;
+const bcrypt = require('../index.js').bcrypt;
 
 router.post('/office-login', async (req, res) => {
 

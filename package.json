@@ -1,6 +1,6 @@
 {
   "name": "mlm-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "node": "10.15.1"
   },
@@ -13,9 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^16.0.1",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.4",
     "dotenv": "^8.1.0",
-    "express": "^4.17.1",
+    "express": "^4.16.3",
     "firebase-admin": "^8.5.0",
     "fs-extra": "^8.1.0",
     "jsonwebtoken": "^8.5.1",

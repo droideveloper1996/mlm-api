@@ -26,14 +26,14 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
 
     //const salt = await bcrypt.genSalt(10);
     // const  = await bcrypt.hash(req.body.password, salt);
-    var salt = await bcrypt.genSaltSync(10);
-    var hashPassword = bcrypt.hashSync(req.body.password, salt);
+    /// var salt = await bcrypt.genSaltSync(10);
+    // var hashPassword = bcrypt.hashSync(req.body.password, salt);
     const studentObject = new studentRegistrationSchema({
         studentFirstName: req.body.studentFirstName,
         studentLastName: req.body.studentLastName,
         dateOfAdmission: req.body.dateOfAdmission,
         gender: req.body.gender,
-        password: hashPassword,
+        password: req.body.password,
         studentID: req.body.studentID,
         dateOfBirth: req.body.dateOfBirth,
         boardRollNo: req.body.boardRollNo,

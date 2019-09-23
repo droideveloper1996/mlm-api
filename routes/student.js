@@ -25,20 +25,7 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
-    // if (req.file == null) {
-    //     return res.send({ status: 400, message: 'Please select a picture file to submit!' });
-    // }
-    // else {
-    //     var newImg = fs.readFileSync(req.file.path);
-    //     var encImg = newImg.toString('base64');
-    //     var newItem = {
-    //         description: req.body.description,
-    //         contentType: req.file.mimetype,
-    //         size: req.file.size,
-    //         img: Buffer(encImg, 'base64')
-    //     };
-    //     picture_id = uploadImage(newItem)
-    // }
+
     const studentObject = new studentRegistrationSchema({
         studentFirstName: req.body.studentFirstName,
         studentLastName: req.body.studentLastName,
@@ -54,7 +41,9 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
         secondaryMobile: req.body.secondaryMobile,
         personalDetail: req.body.personalDetail,
         medium: req.body.medium,
-        profilePictureRef: picture_id
+        religion: req.body.religion,
+        profilePictureRef: req.body.profilePictureRef,
+        signatureRef: req.body.signatureRef
     });
 
     try {
@@ -71,19 +60,5 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
 });
 
 
-const uploadImage = (newItem) => {
-    MongoClient.connect(process.env.DB_CONNECT_URL_PRODUCTION, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
-
-        const db = client.db('Production');
-        db.collection('Bucket')
-            .insert(newItem, function (err, result) {
-                if (err) { console.log(err); };
-                var _id = new ObjectId(result.ops[0]._id);
-                fs.remove(req.file.path, function (err) {
-                    return (result.ops[0]._id);
-                });
-            });
-    });
-}
 
 module.exports.students = router;

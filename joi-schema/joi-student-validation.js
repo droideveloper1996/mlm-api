@@ -29,7 +29,9 @@ const studentRegistrationValiation = (data) => {
         secondaryMobile: Joi.number().required(),
         personalDetail: personalDetail,
         medium: Joi.string().required(),
-        profilePictureRef: Joi.string().required()
+        profilePictureRef: Joi.string().required(),
+        signatureRef: Joi.string().required(),
+        religion: Joi.string().required()
     });
 
     return schema.validate(data);

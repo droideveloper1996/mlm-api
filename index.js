@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 
 app.post('/upload', upload.single('image'), async (req, res, next) => {
     if (req.file == null) {
-        res.send({ title: 'Please select a picture file to submit!' });
+      return  res.status(400).json({ status:400,message: 'Please select a picture file to submit!' });
     }
     else {
         MongoClient.connect(process.env.DB_CONNECT_URL_PRODUCTION, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
@@ -71,16 +71,21 @@ app.post('/upload', upload.single('image'), async (req, res, next) => {
                 size: req.file.size,
                 img: Buffer(encImg, 'base64')
             };
+            try{
             const db = client.db('Production');
             db.collection('Bucket')
                 .insert(newItem, function (err, result) {
-                    if (err) { console.log(err); };
-                    var _id = new ObjectId(result.ops[0]._id);
-                    console.log(_id)
-                    fs.remove(req.file.path, function (err) {
-                        res.send({ title: 'Thanks for the Picture!' });
-                    });
+                    if (err) { console.log(err); return res.status(400).json({ message: err });};
+
+                      var _id = new ObjectId(result.ops[0]._id);
+                      console.log(_id)
+                      fs.remove(req.file.path, function (err) {
+                          return res.status(200).json({ message: 'Thanks for the Picture!',_id:_id ,status:200});
+                      });
                 });
+              }catch(err){
+                  return res.status(400).json({ message: 'Error Occured '+err ,status:400});
+              }
         });
     };
 });
@@ -96,6 +101,11 @@ app.get('/getImage/:picture', function (req, res) {
             });
     });
 });
+
+app.post('/test-route',(req,res)=>{
+  headers=req.header('authorization')
+res.status(200).json({res:req.body,header:headers})
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

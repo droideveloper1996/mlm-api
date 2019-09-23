@@ -170,8 +170,16 @@ var studentRegistrationSchema = new mongoose.Schema({
     },
     profilePictureRef: {
         type: String
-
+    },
+    signatureRef: {
+        type: String
+    },
+    religion: {
+        type: String,
+        required: true,
+        trim: true
     }
+
 
 
 })

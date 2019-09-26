@@ -13,8 +13,10 @@ router.post('/office-login', async (req, res) => {
     const user = await OfficeUser.findOne({ username: req.body.username });
     if (!user) return res.status(400).json({ status: 400, message: 'No User Found' });
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).send("Password  is  invalid");
+    // const validPassword = await bcrypt.compare(req.body.password, user.password);
+
+    if (req.body.password != validPassword)
+        return res.status(400).send("Password  is  invalid");
 
     const token = jwt.sign({
         _id: user._id,

@@ -189,7 +189,7 @@ var studentRegistrationSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    disablility: {
+    disability: {
         type: String,
         required: true,
         trim: true
@@ -205,7 +205,7 @@ var studentRegistrationSchema = new mongoose.Schema({
         trim: true
     }
 
-    
+
 
 })
 

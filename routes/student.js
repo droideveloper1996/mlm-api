@@ -49,7 +49,7 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
         conveyance: req.body.conveyance,
         adhaarNumber: req.body.adhaarNumber,
         admissionType: req.body.admissionType,
-        disability: req.body.disablility,
+        disability: req.body.disability,
         registeredBy: req.body.registeredBy
     });
 

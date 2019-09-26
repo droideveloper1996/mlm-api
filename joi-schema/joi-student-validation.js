@@ -31,7 +31,13 @@ const studentRegistrationValiation = (data) => {
         medium: Joi.string().required(),
         profilePictureRef: Joi.string().required(),
         signatureRef: Joi.string().required(),
-        religion: Joi.string().required()
+        religion: Joi.string().required(),
+        conveyance: Joi.string().required(),
+        adhaarNumber: Joi.string().required(),
+        admissionType: Joi.string().required(),
+        disablility: Joi.string().required(),
+        registeredBy: Joi.string().required()
+
     });
 
     return schema.validate(data);

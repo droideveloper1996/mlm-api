@@ -205,6 +205,7 @@ var studentRegistrationSchema = new mongoose.Schema({
         trim: true
     }
 
+    
 
 })
 

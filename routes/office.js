@@ -22,7 +22,8 @@ router.post('/office-login', async (req, res) => {
         _id: user._id,
         fname: user.fname,
         mobile: user.mobile,
-        username: user.username
+        username: user.username,
+        role: user.role
     }, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
 
     return res.status(200).header('auth-token', token).json({ status: 200, message: 'Logged In', token: token })

@@ -45,7 +45,12 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
         medium: req.body.medium,
         religion: req.body.religion,
         profilePictureRef: req.body.profilePictureRef,
-        signatureRef: req.body.signatureRef
+        signatureRef: req.body.signatureRef,
+        conveyance: req.body.conveyance,
+        adhaarNumber: req.body.adhaarNumber,
+        admissionType: req.body.admissionType,
+        disablility: req.body.disablility,
+        registeredBy: req.body.registeredBy
     });
 
     try {

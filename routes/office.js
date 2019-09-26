@@ -38,15 +38,15 @@ router.post('/office-register', async (req, res) => {
     const matchedMobile = await OfficeUser.findOne({ mobile: req.body.mobile });
     if (matchedMobile) return res.status(400).json({ status: 200, message: 'Mobile Already Registered' });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    //const salt = await bcrypt.genSalt(10);
+    //const hashPassword = await bcrypt.hash(req.body.password, salt);
     const user = new OfficeUser({
         fname: req.body.fname,
         lname: req.body.lname,
         username: req.body.username,
         mobile: req.body.mobile,
         role: req.body.role,
-        password: hashPassword
+        password: req.body.password
     });
 
     try {

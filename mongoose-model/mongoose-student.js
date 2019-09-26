@@ -178,8 +178,32 @@ var studentRegistrationSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    conveyance: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    adhaarNumber: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    disablility: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    admissionType: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    registeredBy: {
+        type: String,
+        required: true,
+        trim: true
     }
-
 
 
 })

@@ -74,7 +74,7 @@ router.get('/getAllStudents', verifyToken, async (req, res) => {
             return res.status(400).json({ message: "No Student Found", status: 400 })
         }
         else {
-            return res.status(400).json(stud)
+            return res.status(200).json(stud)
         }
     }
     catch (error) {
@@ -193,6 +193,4 @@ router.get('/getStudentByAdmissionType', verifyToken, async (req, res) => {
     }
 
 });
-
-
 module.exports.office = router;

@@ -87,7 +87,7 @@ router.get('/getStudentById', verifyToken, async (req, res) => {
         const id = req.query.studentID;
         if (id == null || id == '') return res.status(400).json({ message: "Student Id/Scholar Number must be provided", status: 400 })
         const student = await studentRegistrationSchema.findOne({ studentID: id });
-        if (!students) return res.status(400).json({ message: "No Such Student Exists", status: 400 })
+        if (!student) return res.status(400).json({ message: "No Such Student Exists", status: 400 })
         else return res.status(200).json(student)
     }
     catch (e) {

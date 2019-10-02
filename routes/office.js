@@ -17,7 +17,7 @@ router.post('/office-login', async (req, res) => {
     // const validPassword = await bcrypt.compare(req.body.password, user.password);
 
     if (req.body.password != user.password)
-        return res.status(400).send("Password  is  invalid");
+        return res.status(400).send({ status: 400, message: "Password  is  invalid" });
 
     const token = jwt.sign({
         _id: user._id,

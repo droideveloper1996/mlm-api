@@ -52,7 +52,8 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
         disability: req.body.disability,
         registeredBy: req.body.registeredBy,
         class: req.body.class,
-        section: req.body.section
+        section: req.body.section,
+        stream: req.body.stream
     });
 
     try {

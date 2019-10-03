@@ -217,6 +217,10 @@ var studentRegistrationSchema = new mongoose.Schema({
     stream: {
         type: String,
         trim: true
+    },
+    previousBalance: {
+        type: String,
+        trim: true
     }
 
 })

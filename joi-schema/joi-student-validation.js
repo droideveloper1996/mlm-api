@@ -40,6 +40,7 @@ const studentRegistrationValiation = (data) => {
         class: Joi.string().required(),
         section: Joi.string().required(),
         stream: Joi.string(),
+        previousBalance: Joi.string().required()
 
     });
 

@@ -53,7 +53,8 @@ router.post('/register-student', upload.single('image'), async (req, res) => {
         registeredBy: req.body.registeredBy,
         class: req.body.class,
         section: req.body.section,
-        stream: req.body.stream
+        stream: req.body.stream,
+        previousBalance: req.body.previousBalance
     });
 
     try {

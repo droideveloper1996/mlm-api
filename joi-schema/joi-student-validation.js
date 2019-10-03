@@ -36,7 +36,9 @@ const studentRegistrationValiation = (data) => {
         adhaarNumber: Joi.string().required(),
         admissionType: Joi.string().required(),
         disability: Joi.string().required(),
-        registeredBy: Joi.string().required()
+        registeredBy: Joi.string().required(),
+        class: Joi.string().required(),
+        section: Joi.string().required(),
 
     });
 

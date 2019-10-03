@@ -213,6 +213,10 @@ var studentRegistrationSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    stream: {
+        type: String,
+        trim: true
     }
 
 })

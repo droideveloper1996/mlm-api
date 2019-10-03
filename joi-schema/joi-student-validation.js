@@ -39,7 +39,7 @@ const studentRegistrationValiation = (data) => {
         registeredBy: Joi.string().required(),
         class: Joi.string().required(),
         section: Joi.string().required(),
-        stream: Joi.string().required(),
+        stream: Joi.string(),
 
     });
 

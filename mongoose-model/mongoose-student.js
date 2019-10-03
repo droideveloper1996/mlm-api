@@ -219,7 +219,7 @@ var studentRegistrationSchema = new mongoose.Schema({
         trim: true
     },
     previousBalance: {
-        type: String,
+        type: Number,
         trim: true
     }
 

@@ -4,6 +4,7 @@ const { loginValidation, registerValidation } = require('../joi-schema/joi-valid
 const OfficeUser = require('../mongoose-model/mongoose-office');
 const { studentRegistrationSchema } = require('../mongoose-model/mongoose-student');
 const jwt = require('jsonwebtoken');
+const { StudentFee } = require('../mongoose-model/fee-model')
 const bcrypt = require('../index.js').bcrypt;
 
 router.post('/office-login', async (req, res) => {
@@ -62,8 +63,6 @@ router.post('/office-register', async (req, res) => {
         return res.status(400).json({ status: 400, message: err })
 
     }
-
-
 })
 
 router.get('/getAllStudents', verifyToken, async (req, res) => {
@@ -93,7 +92,6 @@ router.get('/getStudentById', verifyToken, async (req, res) => {
     catch (e) {
         res.status(400).json({ message: e.message })
     }
-
 });
 
 router.get('/getStudentByBoard', verifyToken, async (req, res) => {
@@ -193,4 +191,74 @@ router.get('/getStudentByAdmissionType', verifyToken, async (req, res) => {
     }
 
 });
+router.get('/pendingFee', verifyToken, (req, res) => {
+
+
+
+})
+
+router.post('/isFirstTimeDeposit', async (req, res) => {
+
+    const studentID = req.body.studentID;
+    const student = await StudentFee.findOne({ studentID: studentID })
+    if (!student) {
+        return res.status(200).json({ status: 200, message: 'Student Not Found', isFirstTimeDeposit: true, student: {} })
+    }
+    else {
+        return res.status(200).json({ status: 200, message: 'Student Found ', isFirstTimeDeposit: false, student: student })
+    }
+})
+
+router.post('/depositFee', async (req, res) => {
+    const studentMobile = req.body.mobile
+    const studentID = req.body.studentID;
+    const paidAmount = req.body.paidAmount;
+    const previousBalance = req.body.previousBalance;
+    const currentCharge = req.body.currentCharge;
+    if (studentID == null || studentID == '') return res.status(400).json({ message: "Student ID cannot be empty", status: 400 })
+    //outstand=previousBal+CurrentCharge
+    var student = await StudentFee.findOne({ studentID: studentID })
+    if (!student) {
+        console.log('No Student Found')
+        outstandingDue = currentCharge + previousBalance
+        var feePayload = {
+            studentReceiptNo: `${req.body.branchCode}/${req.body.studentID}/${Date.now()}`,
+            studentPaid: paidAmount,
+            studentCurrentCharge: currentCharge,
+            studentTotalAmountDue: outstandingDue,
+            studentPaymentToward: req.body.toward,
+            previousBalance: previousBalance,
+            updatedBalance: outstandingDue - paidAmount,
+        }
+        var payload = {
+            studentID: studentID,
+            studentName: req.body.studentName,
+            studentFeeReport: [feePayload],
+        }
+        var stu = new StudentFee(payload)
+        const savedUser = await stu.save();
+        if (savedUser) return res.status(200).json(savedUser)
+    }
+    else {
+        var feeList = student.studentFeeReport;
+        _previousBalance = (feeList[feeList.length - 1]).updatedBalance
+        outstandingDue = currentCharge + _previousBalance
+        console.log(`Outstanding Due ${outstandingDue}`)
+        console.log(`Previous Balance Due ${_previousBalance}`)
+
+        var feePayload = {
+            studentReceiptNo: `${req.body.branchCode}/${req.body.studentID}/${Date.now()}`,
+            studentPaid: paidAmount,
+            studentCurrentCharge: currentCharge,
+            studentTotalAmountDue: outstandingDue,
+            studentPaymentToward: req.body.toward,
+            previousBalance: _previousBalance,
+            updatedBalance: outstandingDue - paidAmount
+        }
+        student.studentFeeReport.push(feePayload)
+        const result = await student.save();
+        return res.status(200).json(result)
+    }
+})
+
 module.exports.office = router;

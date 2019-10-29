@@ -1,8 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const joi = require('@hapi/joi');
-const jwt = require('jsonwebtoken');
+const { sms } = require('./routes/sendsms');
 const { students } = require('./routes/student');
 const { faculty } = require('./routes/faculty');
 const { reports } = require('./routes/report');
@@ -16,7 +15,6 @@ const upload = multer({ dest: 'uploads/' })
 const fs = require('fs-extra');
 const MongoClient = require('mongodb').MongoClient
 ObjectId = require('mongodb').ObjectId
-module.exports.bcrypt = bcrypt;
 
 
 dotenv.config();
@@ -43,6 +41,8 @@ app.use('/api/report', reports)
 app.use('/api/office', office)
 app.use('/api/fee', fees)
 app.use('/api/file', file)
+app.use('/api/sms', sms)
+
 
 
 mongoose.connect(process.env.DB_CONNECT_URL_PRODUCTION, {
@@ -108,6 +108,7 @@ app.post('/test-route', (req, res) => {
     headers = req.header('authorization')
     res.status(200).json({ res: req.body, header: headers })
 })
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

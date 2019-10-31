@@ -261,4 +261,29 @@ router.post('/depositFee', async (req, res) => {
     }
 })
 
+
+router.post('/updateStudent', async (req, res) => {
+
+    const studentId = req.body.studentID;
+    const update = req.body.update
+    const query = { studentID: studentId };
+    const options = { new: true };
+
+    if (studentId == '' || studentId == null) return res.status(400).json({ status: 400, message: "Required Student ID" })
+    const student = await studentRegistrationSchema.findOne({ studentID: studentId });
+    if (!student) return res.status(400).json({ status: 400, message: "Student ID invalid " })
+
+    var updatedStudent = await studentRegistrationSchema.findOneAndUpdate(query, update, options)
+
+    if (updatedStudent) { return res.status(200).json({ status: 200, message: "Student Updated", student: updatedStudent }) }
+    else { return res.status(400).json({ status: 400, message: 'Student Could Not be updated' }) }
+
+
+})
+
+
+router.post('/markClassAttendence', (req, res) => {
+
+})
+
 module.exports.office = router;
